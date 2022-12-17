@@ -24,7 +24,7 @@ const CardQuiz = dynamic(() => import("@/components/CardQuiz"), {
 });
 
 export async function getServerSideProps() {
-  const response = await fetch("http://localhost:3000/api/profile", {
+  const response = await fetch(`${process.env.API_HOST}/api/profile`, {
     method: "GET",
   });
 
@@ -33,7 +33,7 @@ export async function getServerSideProps() {
   return {
     props: {
       profile: data,
-    }, // will be passed to the page component as props
+    },
   };
 }
 

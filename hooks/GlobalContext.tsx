@@ -24,10 +24,18 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
 
   const [currentTab, setCurrentTab] = useState<string>("news");
 
+  const errorHandlers = (error: any) => {
+    setErrorMsg(error.message);
+
+    setTimeout(() => {
+      setErrorMsg("");
+    }, 500);
+  };
+
   const fetchNews = async () => {
     setNewsLoading(true);
     try {
-      const response = await fetch("/api/news?limit=5", {
+      const response = await fetch(`/api/news?limit=10`, {
         method: "GET",
       });
 
@@ -36,7 +44,7 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
       setNews(data ?? []);
       setNewsLoading(false);
     } catch (error: any) {
-      console.log(error.message);
+      errorHandlers(error);
       setNewsLoading(false);
     }
   };
@@ -44,7 +52,7 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
   const fetchLiveStream = async () => {
     setLiveStreamLoading(true);
     try {
-      const response = await fetch("/api/livestream?limit=6", {
+      const response = await fetch(`/api/livestream?limit=10`, {
         method: "GET",
       });
 
@@ -53,7 +61,7 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
       setLiveStream(data ?? []);
       setLiveStreamLoading(false);
     } catch (error: any) {
-      console.log(error.message);
+      errorHandlers(error);
       setLiveStreamLoading(false);
     }
   };
@@ -61,7 +69,7 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
   const fetchQuiz = async () => {
     setQuizLoading(true);
     try {
-      const response = await fetch("/api/quiz?limit=6", {
+      const response = await fetch(`/api/quiz?limit=10`, {
         method: "GET",
       });
 
@@ -70,7 +78,7 @@ const GlobalProvider: React.FC<Props> = ({ children }) => {
       setQuiz(data ?? []);
       setQuizLoading(false);
     } catch (error: any) {
-      console.log(error.message);
+      errorHandlers(error);
       setQuizLoading(false);
     }
   };
